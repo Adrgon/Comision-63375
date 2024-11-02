@@ -1,34 +1,52 @@
-import { useState, useEffect } from "react"
-import { getProducts } from "../../asyncMock"
-import ItemList from "../ItemList/ItemList"
+import { useEffect, useState } from "react";
+import useMercadoLibreSearch from "../../hooks/useMercadoLibre";
+import ItemList from "../ItemList/ItemList";
+function ItemListContainer() {
+    const {results, searchProducts, loading} = useMercadoLibreSearch();
+    const [query, setQuery] = useState("");
 
-function ItemListContainer(props) {
-  const [productos, setProductos] = useState([])
-  //const productos = [];
+    useEffect(()=>{
+        //console.log("despues del primer render")
+        searchProducts("laptops");
+    },[])
 
-  useEffect(() => {
-   //voy a buscar los productos
-   // guardo dentro del array de productos
-   // lo guardo en el estado que se llama productos
-   // setProductos(productos)
-   // emular la busqueda de datos fuera de la app
 
-   getProducts()
-    .then((res) => {
-      console.log(res)
-      setProductos(res)
-    })
-    .catch((err) => {
-      console.log(err)
-    })      
-  },[productos])
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if(query) searchProducts(query)
+    }
 
-  return (
-    <>
-      <h2 className="text-3xl font-bold underline">{props.greeting}</h2>
-      <ItemList products={productos} />
-    </>
-  );
+
+    return (
+    <div className="min-h-screen bg-gray-100 p-8">
+        <div className="max-w-4xl mx-auto">
+            <h1 className="text-2xl font-bold text-center text-gray-800 mb-12">
+                Buscador de productos
+            </h1>
+            <form className="flex justify-center mb-8" onSubmit={handleSearch}>
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e)=> setQuery(e.target.value)}
+                    placeholder="Buscar productos"
+                    className="w-full max-w-md border border-gray-300 rounded p-3 focus:outline-none focus:ring-2"
+                />
+                <button 
+                    type='submit'
+                    className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-r-lg font-semibold"
+                >Buscar</button>
+            </form>
+            {loading ? (<p className="text-center text-gray-500">Cargando...</p>)
+            :(
+                <ItemList products={results}/>
+            )}
+            {!loading && results.length === 0 && (
+                <p className="text-center text-gray-500">No se encontraron resultados para la busqueda</p>
+            )}
+        </div>
+
+    </div>
+  )
 }
 
 export default ItemListContainer
