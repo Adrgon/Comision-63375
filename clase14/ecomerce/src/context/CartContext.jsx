@@ -1,34 +1,33 @@
 import { createContext, useState } from "react";
 
 
-
-
 export const CartContext = createContext()
-//export const CartContext = React.createContext()
+
 
 export const CartProvider = ({children}) =>{
     const [cart, setCart] = useState([])
-    const isInCart = (id) => {
-      return cart.some((prod) => prod.id === id);
-    };
-
+    
+    const isInCart = (id) =>{
+        return cart.some(prod => prod.id === id)
+    }
+    
     const addItem = (productToAdd) => {
       if (!isInCart(productToAdd.id)) {
         setCart((prev) => [...prev, productToAdd]);
-      } else {
-        console.log("El producto ya esta en el carrito");
+      }else {
+        console.log("El producto ya esta en el carrito")
       }
     };
-
-    const removeItem = (id) => {
-      const cartUpdated = cart.filter((prod) => prod.id !== id);
-      setCart(cartUpdated);
-    };
+    
+    const removeItem = (id) =>{
+        const cartUpdated = cart.filter( prod => prod.id !== id)
+        setCart(cartUpdated)
+    }
 
     const clearCart = () => {
-      setCart([]);
-    };
-
+        setCart([])    
+    }
+    
     const getTotal = () => {
       let accu = 0;
       cart.forEach((item) => {
@@ -38,14 +37,14 @@ export const CartProvider = ({children}) =>{
     };
 
     const getTotalQuantity = () => {
-      let accu = 0;
-      cart.forEach((produc) => {
-        accu += produc.quantity;
-      });
-      return accu;
+        let accu = 0;
+        cart.forEach( produc => {
+            accu += produc.quantity
+        })
+        return accu
     };
-
-    const totalQuantity = getTotalQuantity();
+    
+    const totalQuantity = getTotalQuantity()
 
     
     const obj = {
@@ -55,7 +54,7 @@ export const CartProvider = ({children}) =>{
       removeItem,
       clearCart,
       totalQuantity,
-      getTotal,
+      getTotal
     }; 
     return (
         <CartContext.Provider value={obj}>
