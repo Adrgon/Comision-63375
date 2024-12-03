@@ -1,5 +1,4 @@
-import {db} from '../index'
-
+import { db } from '../index'
 import { createProductAdapterFromFirebase } from '../../../adapters/ProductAdapter'
 import {
   collection,

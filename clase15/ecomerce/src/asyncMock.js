@@ -1,7 +1,3 @@
-import { db } from "./services/firebase";
-import { doc, writeBatch, collection } from "firebase/firestore";
-
-
 const products = [
   {
     id: "1",
@@ -121,21 +117,4 @@ export const getProductsByCategory = (categoryId) => {
         resolve(products.find((prod) => prod.id === productId));
       }, 1000);
     });
-};
-
-export const subirProductos = async () => {
-const batch = writeBatch(db);
-const productosRef = collection(db, "products");
-
-products.forEach((producto) => {
-  const nuevoDoc = doc(productosRef); //
-  batch.set(nuevoDoc, producto); // agrega la operacion de escritura al batch
-});
-
-try {
-  await batch.commit();
-  console.log("Productos Subidos exitosamente");
-} catch (error) {
-  console.log("Error subiendo productos", error);
-}
 };

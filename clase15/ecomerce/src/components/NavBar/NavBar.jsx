@@ -54,16 +54,6 @@ function NavBar({ cartCount, title }) {
                 Noteboks
               </NavLink>
             </li>
-            {/* <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive ? "ActiveOption" : "Option"
-                }
-                to="/subirproductos"
-              >
-                SubirProductos
-              </NavLink>
-            </li> */}
           </ul>
           <form className="d-flex" role="search">
             <CardWidget cartCount={cartCount} />

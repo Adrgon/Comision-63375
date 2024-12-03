@@ -6,9 +6,6 @@ import { CartProvider } from "./context/CartContext";
 
 import { NotificationProvider } from "./context/NotificationContext";
 
-
-import SubirProductos from './components/SubirProdutos/SubirProductos';
-
 import Cart from "./components/Cart/Cart";
 import Checkout from "./components/Checkout/Checkout";
 
@@ -43,7 +40,6 @@ function App() {
             <Route exact path="/cart" element={<Cart />} />
 
             <Route exact path="/checkout" element={<Checkout />} />
-{/*             <Route exact path="/subirproductos" element={<SubirProductos />} /> */}
 
             <Route path="*" element={<h1>:( 404 Not found</h1>} />
           </Routes>

@@ -1,0 +1,14 @@
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: flex-start;
+  margin: 0 auto;
+  padding: 4em 1em;
+  max-width: 1200px;
+  text-align: center;
+  overflow: hidden;
+  user-select: none;
+}
